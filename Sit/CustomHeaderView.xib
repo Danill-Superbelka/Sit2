@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="CustomHeaderView" id="iN0-l3-epB" customClass="CustomHeaderView" customModule="Sit" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="492" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eo0-YJ-auf">
+                    <rect key="frame" x="20" y="19" width="291" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZM-Jk-NWh">
+                    <rect key="frame" x="20" y="14" width="452" height="30"/>
+                    <state key="normal" title="Button" image="chevron.compact.down" catalog="system"/>
+                    <connections>
+                        <action selector="showButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="dHh-il-QdJ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eo0-YJ-auf" secondAttribute="trailing" constant="181" id="4cE-K5-Hvb"/>
+                <constraint firstItem="eo0-YJ-auf" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="8WN-Nj-r62"/>
+                <constraint firstItem="eo0-YJ-auf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="19" id="Yb1-dD-gLh"/>
+                <constraint firstItem="eZM-Jk-NWh" firstAttribute="leading" secondItem="eo0-YJ-auf" secondAttribute="trailing" constant="115" id="aXe-1E-Qde"/>
+                <constraint firstItem="eZM-Jk-NWh" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="14" id="e19-4v-bjN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eo0-YJ-auf" secondAttribute="bottom" constant="20" id="lQy-Me-cdd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="eZM-Jk-NWh" secondAttribute="trailing" constant="20" id="oCl-9k-yCw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eZM-Jk-NWh" secondAttribute="bottom" constant="16" id="r0a-Hf-RjF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="arrorButton" destination="eZM-Jk-NWh" id="Ji8-My-cnQ"/>
+                <outlet property="headerTitle" destination="eo0-YJ-auf" id="NOw-5G-ZWS"/>
+            </connections>
+            <point key="canvasLocation" x="-256" y="-38.680659670164921"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="chevron.compact.down" catalog="system" width="128" height="43"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
