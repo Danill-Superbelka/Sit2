@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -461,20 +462,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9P-Zv-8qc">
-                                <rect key="frame" x="331" y="127" width="28" height="28"/>
+                                <rect key="frame" x="318" y="123" width="41" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="questionmark.circle.fill" catalog="system"/>
                                 <connections>
-                                    <segue destination="1aZ-D2-hMC" kind="show" id="svE-W5-spH"/>
+                                    <segue destination="1aZ-D2-hMC" kind="showDetail" id="svE-W5-spH"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Чьи данные обрабатываются?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibN-eZ-WYD">
-                                <rect key="frame" x="16" y="420" width="256" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2MX-Bo-aAm">
                                 <rect key="frame" x="16" y="457" width="343" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -483,15 +477,34 @@
                                     <segment title="внешних лиц"/>
                                 </segments>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Чьи данные обрабатываются?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibN-eZ-WYD">
+                                <rect key="frame" x="16" y="420" width="256" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8DP-qk-X4C">
+                                <rect key="frame" x="142" y="519" width="91" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="AccentColor"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <state key="normal" title="Добавить">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="07f-K2-6k3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="zdx-cT-mOs"/>
                     <connections>
+                        <outlet property="addButton" destination="8DP-qk-X4C" id="OT1-ln-dHY"/>
                         <outlet property="numberOfData" destination="wgB-6q-bjA" id="JhH-nK-pTT"/>
                         <outlet property="orgNameLabel" destination="1FQ-eG-o1E" id="1o0-Ar-Smw"/>
                         <outlet property="typeOfData" destination="Fgv-iS-17y" id="we3-Ti-i7O"/>
+                        <outlet property="typeOfThreads" destination="38b-fI-l2B" id="rkm-QQ-9r4"/>
+                        <outlet property="whoseData" destination="2MX-Bo-aAm" id="INj-wq-C0y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mH-SZ-NMx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -501,7 +514,7 @@
         <!--View Controller-->
         <scene sceneID="jAO-ej-wdz">
             <objects>
-                <viewController id="1aZ-D2-hMC" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="pageSheet" id="1aZ-D2-hMC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M9s-Ri-LbO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -552,6 +565,9 @@
         <image name="Group 3" width="378" height="245"/>
         <image name="Section" width="378" height="269"/>
         <image name="questionmark.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
