@@ -406,13 +406,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название организации " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1FQ-eG-o1E">
-                                <rect key="frame" x="16" y="124" width="343" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название организации " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1FQ-eG-o1E">
+                                <rect key="frame" x="16" y="124" width="294" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fgv-iS-17y">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Fgv-iS-17y">
                                 <rect key="frame" x="16" y="202" width="343" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="1"/>
                                     <segment title="2"/>
@@ -420,48 +422,70 @@
                                     <segment title="4"/>
                                 </segments>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тип данных" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vH-VQ-Qee">
-                                <rect key="frame" x="16" y="173" width="343" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="kCB-sN-AcN"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Тип данных" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vH-VQ-Qee">
+                                <rect key="frame" x="16" y="173" width="119" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wgB-6q-bjA">
-                                <rect key="frame" x="16" y="282" width="343" height="32"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="38b-fI-l2B">
+                                <rect key="frame" x="16" y="371" width="343" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="&lt;1000"/>
-                                    <segment title="1000-100000"/>
-                                    <segment title="&gt;100000"/>
+                                    <segment title="1"/>
+                                    <segment title="2"/>
+                                    <segment title="3"/>
                                 </segments>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Объем данных" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYS-jg-AQA">
-                                <rect key="frame" x="16" y="253" width="119" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Типы угроз" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSF-5R-nGE">
+                                <rect key="frame" x="16" y="342" width="119" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wgB-6q-bjA">
+                                <rect key="frame" x="16" y="282" width="343" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="менее 100 000"/>
+                                    <segment title="более 100 000"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Объем данных" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYS-jg-AQA">
+                                <rect key="frame" x="16" y="253" width="119" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9P-Zv-8qc">
+                                <rect key="frame" x="331" y="127" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="questionmark.circle.fill" catalog="system"/>
+                                <connections>
+                                    <segue destination="1aZ-D2-hMC" kind="show" id="svE-W5-spH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Чьи данные обрабатываются?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibN-eZ-WYD">
+                                <rect key="frame" x="16" y="420" width="256" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2MX-Bo-aAm">
+                                <rect key="frame" x="16" y="457" width="343" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="сотрудников"/>
+                                    <segment title="внешних лиц"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="07f-K2-6k3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="5vH-VQ-Qee" firstAttribute="top" secondItem="1FQ-eG-o1E" secondAttribute="bottom" constant="15" id="1f8-Vf-V3v"/>
-                            <constraint firstItem="Fgv-iS-17y" firstAttribute="top" secondItem="5vH-VQ-Qee" secondAttribute="bottom" constant="8" symbolic="YES" id="1v8-9A-eWv"/>
-                            <constraint firstItem="PYS-jg-AQA" firstAttribute="top" secondItem="Fgv-iS-17y" secondAttribute="bottom" constant="20" id="2Vi-hl-hyR"/>
-                            <constraint firstItem="1FQ-eG-o1E" firstAttribute="top" secondItem="07f-K2-6k3" secondAttribute="top" constant="124" id="63E-Oy-qPh"/>
-                            <constraint firstItem="PYS-jg-AQA" firstAttribute="leading" secondItem="wgB-6q-bjA" secondAttribute="leading" id="7vX-ru-PUj"/>
-                            <constraint firstItem="Fgv-iS-17y" firstAttribute="leading" secondItem="PYS-jg-AQA" secondAttribute="leading" id="IZY-LV-eiY"/>
-                            <constraint firstItem="wgB-6q-bjA" firstAttribute="top" secondItem="PYS-jg-AQA" secondAttribute="bottom" constant="9" id="NLw-1V-hCb"/>
-                            <constraint firstItem="Fgv-iS-17y" firstAttribute="trailing" secondItem="wgB-6q-bjA" secondAttribute="trailing" id="QJ4-kL-wxe"/>
-                            <constraint firstItem="1FQ-eG-o1E" firstAttribute="trailing" secondItem="5vH-VQ-Qee" secondAttribute="trailing" id="SFw-9w-kXx"/>
-                            <constraint firstItem="1FQ-eG-o1E" firstAttribute="leading" secondItem="6IN-cC-jhP" secondAttribute="leadingMargin" id="Z5j-5L-TXj"/>
-                            <constraint firstItem="1FQ-eG-o1E" firstAttribute="leading" secondItem="5vH-VQ-Qee" secondAttribute="leading" id="jjF-2g-v6m"/>
-                            <constraint firstItem="5vH-VQ-Qee" firstAttribute="trailing" secondItem="Fgv-iS-17y" secondAttribute="trailing" id="k37-zb-Ohk"/>
-                            <constraint firstItem="1FQ-eG-o1E" firstAttribute="trailing" secondItem="6IN-cC-jhP" secondAttribute="trailingMargin" id="nJV-iE-9rH"/>
-                            <constraint firstItem="5vH-VQ-Qee" firstAttribute="leading" secondItem="Fgv-iS-17y" secondAttribute="leading" id="spG-SC-wgC"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="zdx-cT-mOs"/>
                     <connections>
@@ -472,7 +496,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mH-SZ-NMx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2585" y="88"/>
+            <point key="canvasLocation" x="2584.8000000000002" y="87.706146926536732"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="jAO-ej-wdz">
+            <objects>
+                <viewController id="1aZ-D2-hMC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="M9s-Ri-LbO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xSd-lx-OOP">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yKl-mL-40t"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="tFk-k8-rfX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7gg-fa-CI9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3320.8000000000002" y="87.706146926536732"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5Vi-ry-nW4">
@@ -500,6 +551,10 @@
         <image name="Button" width="324" height="52"/>
         <image name="Group 3" width="378" height="245"/>
         <image name="Section" width="378" height="269"/>
+        <image name="questionmark.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
