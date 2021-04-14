@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-let app = App(id: "sit-qgyvr")
+let app = App(id: "#####")
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
