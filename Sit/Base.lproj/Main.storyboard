@@ -27,7 +27,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PIV-VD-Fxc">
                                 <rect key="frame" x="16" y="238" width="343" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6XE-6T-cwp">
                                 <rect key="frame" x="16" y="280" width="74" height="30"/>
@@ -44,7 +44,7 @@
                                     <constraint firstAttribute="height" constant="31" id="M3l-jF-lVD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rV-Ya-HU9">
                                 <rect key="frame" x="21.5" y="380" width="324" height="52"/>
@@ -493,6 +493,14 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLD-O5-qp0">
+                                <rect key="frame" x="145" y="557" width="85" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Отобразить"/>
+                                <connections>
+                                    <action selector="showPref:" destination="5jW-Us-lGl" eventType="touchUpInside" id="3Uf-RK-hRf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="07f-K2-6k3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -502,6 +510,7 @@
                         <outlet property="addButton" destination="8DP-qk-X4C" id="OT1-ln-dHY"/>
                         <outlet property="numberOfData" destination="wgB-6q-bjA" id="JhH-nK-pTT"/>
                         <outlet property="orgNameLabel" destination="1FQ-eG-o1E" id="1o0-Ar-Smw"/>
+                        <outlet property="testBut" destination="GLD-O5-qp0" id="Bsj-KQ-570"/>
                         <outlet property="typeOfData" destination="Fgv-iS-17y" id="we3-Ti-i7O"/>
                         <outlet property="typeOfThreads" destination="38b-fI-l2B" id="rkm-QQ-9r4"/>
                         <outlet property="whoseData" destination="2MX-Bo-aAm" id="INj-wq-C0y"/>

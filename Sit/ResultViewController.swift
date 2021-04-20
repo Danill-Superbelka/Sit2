@@ -10,7 +10,9 @@ import RealmSwift
 import Charts
 
 protocol ResultVCDelegate: class {
+//    func update(need:[Int], dontNeed:[Int], preferDict: [Int:Int])
     func update(need:[Int], dontNeed:[Int])
+
 }
 
 
@@ -26,13 +28,15 @@ class ResultVCCell: UITableViewCell {
 
 
 class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
     let user = app.currentUser!
     let org: Organization
-    var needRule: [Int] //Список необходимых правил
-    var numberBlock: [Int] = [Int]()
-    var preferencArr: [Int]
-    var dataPoint: [String] = [String]()
+    var needRule: [Int]
+    var numberBlock = [Int]()
+    var preferencesArr = [Int]()
+    var dictPref = [Int:Int]()
+    var dataPoint = [String]()
+    var keyMass2 = [Int]()
+
     @IBOutlet var orgNameLabel: UILabel!
     @IBAction func qtVCButton(_ sender: Any) {
         showQtVC(org: org)
@@ -43,10 +47,20 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     required init?(coder: NSCoder, org: Organization) {
         self.org = org
         self.needRule = org.needRuleOrg.components(separatedBy: ",").compactMap{Int($0)}
-        self.preferencArr = org.preferences.components(separatedBy: ",").compactMap{Int($0)}
-        if self.preferencArr.count == 0{
-            self.preferencArr = [Int] (repeating: 5, count: org.needRuleOrg.count)
-        }        
+        print("Need Rule: ", needRule)
+        self.preferencesArr = org.preferences.components(separatedBy: ",").compactMap{Int($0)}
+        if self.preferencesArr.isEmpty {
+//            fatalError("Коэффициенты не найдены")
+            print("Коэффициенты не найдены")
+        }
+        var keyMass = [Int]()
+        rulesCount.forEach { rule in
+            keyMass += rule.rulesBlock.keys.sorted()
+        }
+        self.keyMass2 = keyMass
+        let seq = zip(keyMass, self.preferencesArr)
+        self.dictPref = Dictionary(uniqueKeysWithValues: seq)
+        
         super.init(coder: coder)
         
     }
@@ -56,32 +70,48 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        settings()
+        self.resultTVC.delegate = self
+        self.resultTVC.dataSource = self
+
+//        for i in 0..<numberBlock.count {
+//            dataPoint.append(rulesCount[numberBlock[i] - 1].rulesBlock[needRule[i]] ?? "Правило не найдено")
+//        }
+//        print("DataPoint: \(dataPoint)")
+//       // customizeChart(dataPoints: dataPoint, values: preferencArr.map{Double($0)} )
+    }
+    
+    @objc func settings(){
         orgNameLabel?.text = org.name
         self.resultTVC.delegate = self
         self.resultTVC.dataSource = self
-        if needRule.count == 0 {
+        
+        if needRule.isEmpty {
             print("Задач нет")
         } else{
-        for i in 0...needRule.count - 1{
-//            let block = String(needRule[i]).compactMap{$0.wholeNumberValue}
-//            let blockIndex = Int(block[0])
-//            numberBlock.append(blockIndex)
-            let block = needRule[i]
-            if block > 1000 {
-                numberBlock.append(Int("\(block.digits[0])"+"\(block.digits[1])")!)
-            } else {
-                numberBlock.append(block.digits[0])
-            }
+            needRule.forEach { element in
+                switch element{
+                case 210,211,212,213,214,215,216,217:
+                    numberBlock.append(element.digits[0])
+                default:
+                    if element > 100 {
+                        numberBlock.append(Int("\(element.digits[0])"+"\(element.digits[1])")!)
+                        
+                    } else {
+                        numberBlock.append(element.digits[0])      
+                    }
+                }
+                
             }
         }
-        print("Номера блоков \(numberBlock)")
-        for i in 0..<numberBlock.count {
-            dataPoint.append(rulesCount[numberBlock[i] - 1].rulesBlock[needRule[i]] ?? "Правило не найдено")
+        print("Number Block:", numberBlock)
+
+        numberBlock.forEach{ element in
+            dataPoint.append(rulesCount[numberBlock[element]].rulesBlock[needRule[element]] ?? "Правило не найдено")
         }
-        print("DataPoint: \(dataPoint)")
-       // customizeChart(dataPoints: dataPoint, values: preferencArr.map{Double($0)} )
+        customizeChart(dataPoints: dataPoint, values: preferencesArr.map{Double($0)} )
     }
-    
+        
     func customizeChart(dataPoints: [String], values: [Double]) {
         chartView.noDataText = "Нет необходимых правил"
         var dataEntries: [BarChartDataEntry] = []
@@ -138,11 +168,10 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellResultVC", for: indexPath) as! ResultVCCell
         cell.textLabelRule?.text = rulesCount[numberBlock[indexPath.row] - 1].rulesBlock[needRule[indexPath.row]]
-        let stepperValue = preferencArr[indexPath.row]
-        cell.stepperBut.value = Double(Int(stepperValue))
+        let stepperValue = dictPref[needRule[indexPath.row]]
+        cell.stepperBut.value = Double(stepperValue ?? 0)
         cell.stepperBut.tag = indexPath.row
-        cell.stepperBut.addTarget(self, action: #selector(self.stepperValueChanged(_ :)), for: .valueChanged)
-        cell.preferencLabel.text = "\(stepperValue)"
+        cell.preferencLabel.text = "\(stepperValue ?? 0)"
         return cell
     }
     
@@ -151,14 +180,23 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let stepperValue = Int(stepper.value)
         let index = stepper.tag
         let indexPath = IndexPath(row: index, section: 0)
-        preferencArr[index] = stepperValue
+        let rule = needRule[index]
+
+        dictPref[rule] = stepperValue
+        
+        var massValue = [Int]()
+        keyMass2.forEach{ element in
+            massValue.append(dictPref[element] ?? 0)
+        }
+        preferencesArr = massValue
+        
         let cell: ResultVCCell = resultTVC.cellForRow(at: indexPath) as! ResultVCCell
         cell.preferencLabel.text = "\(stepperValue)"
-        customizeChart(dataPoints: dataPoint, values: preferencArr.map{Double($0)})
+        customizeChart(dataPoints: dataPoint, values: preferencesArr.map{Double($0)})
         let predicate = NSPredicate(format: "name == %@", "\(org.name)")
         var configuration = user.configuration(partitionValue: "org = \(user.id)")
         configuration.objectTypes = [Organization.self]
-        
+
         Realm.asyncOpen(configuration: configuration) { (result) in
             switch result {
             case .failure(let error):
@@ -168,7 +206,7 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let orgFilter = orgNeed.filter(predicate)
                 let currentOrg = orgFilter[0]
                 try! realm.write{
-                    currentOrg.preferences = self.preferencArr.map{String(describing: $0)}.joined(separator: ",")
+                currentOrg.preferences = self.preferencesArr.map{String(describing: $0)}.joined(separator: ",")
                 }
             }
         }

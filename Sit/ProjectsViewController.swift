@@ -56,6 +56,7 @@ class ProjectsViewController:  UIViewController {
                 fatalError("Failed to open realm: \(error)")
             case .success(let realm):
                 self!.Show(realm: realm, title: "Организации")
+                
             }}
     }
     

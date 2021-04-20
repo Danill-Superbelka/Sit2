@@ -124,12 +124,13 @@ class OrgTableViewController: UIViewController, UITableViewDelegate, UITableView
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-
-    func isOwnTasks() -> Bool {
-        return partitionValue == "project=\(app.currentUser!.id)"
-    }
+// Удалить
+//    func isOwnTasks() -> Bool {
+//        return partitionValue == "project=\(app.currentUser!.id)"
+//    }
     
     func ShowCreateVC(realm: Realm, title: String){
+        print("Функция открытия контроллера")
         guard let vc = storyboard?.instantiateViewController(identifier: "CreateVC", creator: {
             coder in return CreateViewController(coder: coder, realm: realm, title: title)
         }) else {

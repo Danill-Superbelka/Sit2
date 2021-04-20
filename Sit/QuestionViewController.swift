@@ -21,6 +21,7 @@ class QuestionViewController: UITableViewController{
     let user = app.currentUser!
     let org: Organization
     var ruleMass = [Int]()
+    var prefeMass = [Int]()
     var answer = [Int]()
     
 
@@ -49,8 +50,6 @@ class QuestionViewController: UITableViewController{
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(result))
         tableViewConfig()
         takeInf(org: org)
-        
-        
     }
     
     private func takeInf(org:Organization){
@@ -65,10 +64,29 @@ class QuestionViewController: UITableViewController{
                 let rul = realm.objects(rulesOfType.self)
                 let stringRule = rul[0].rules
                 self.ruleMass = self.get_numbers(stringtext: stringRule)
-                
-                
+//                print("RuleMass", ruleMass)
             }
         }
+        
+        var configurationForPrefe = self.user.configuration(partitionValue: "AllPreferences")
+        configurationForPrefe.objectTypes = [Preferences.self]
+        
+        var configurationForPreferences = user.configuration(partitionValue: "AllPreferences")
+        configurationForPreferences.objectTypes = [Preferences.self]
+        
+        Realm.asyncOpen(configuration: configurationForPreferences) { [self] (result) in
+            switch result {
+            case .failure(let error):
+                print("Failed to open realm: \(error.localizedDescription)")
+            case .success(let realm):
+                print("Successfully opened realm:\(realm)")
+                let prefe = realm.objects(Preferences.self)
+                let prefInt = prefe[0].preference
+                self.prefeMass = prefInt.components(separatedBy: ",").compactMap{Int($0)}
+                print("PrefeMass", prefeMass.count)
+            }
+        }
+        
     }
     
     func get_IntMass(intmass: [String]) -> [Int]{
@@ -154,9 +172,18 @@ class QuestionViewController: UITableViewController{
         let need = ruleMassSet.subtracting(answerSet).sorted()
         let dontNeed = answerSet.subtracting(ruleMassSet).sorted()
         let resultPercentage = (Int(Double(answerSet.count)/Double(ruleMassSet.count)*100))
+//        var prefeDict = [Int:Int]()
+
+//        var keyMass = [Int]()
+//        rulesCount.forEach{ rule in
+//            keyMass += rule.rulesBlock.keys.sorted()
+//        }
+//
+//        let seq = zip(keyMass, self.prefeMass)
+//        prefeDict = Dictionary(uniqueKeysWithValues: seq)
+//        delegate?.update(need: need, dontNeed: dontNeed, preferDict: prefeDict)
         delegate?.update(need: need, dontNeed: dontNeed)
-        
-        
+
         let predicate = NSPredicate(format: "name == %@", "\(org.name)")
         var configuration = user.configuration(partitionValue: "org = \(user.id)")
         configuration.objectTypes = [Organization.self]
@@ -176,11 +203,11 @@ class QuestionViewController: UITableViewController{
                     currentOrg.percentage = String("\(resultPercentage)")
                     currentOrg.needRuleOrg = need.map{String(describing: $0)}.joined(separator: ",")
                     currentOrg.dontNeedRuleOrg = dontNeed.map{String(describing: $0)}.joined(separator: ",")
+                    currentOrg.preferences = self.prefeMass.map{String(describing: $0)}.joined(separator: ",")
                 }
             }
         }
     }
-    
     func Show(){
         guard let vc = storyboard?.instantiateViewController(identifier: "ResultVC", creator: {
             coder in return QuestionViewController(coder: coder)
