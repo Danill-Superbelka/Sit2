@@ -36,6 +36,8 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var dictPref = [Int:Int]()
     var dataPoint = [String]()
     var keyMass2 = [Int]()
+    
+    var orgIsAppreciated = false
 
     @IBOutlet var orgNameLabel: UILabel!
     @IBAction func qtVCButton(_ sender: Any) {
@@ -49,10 +51,15 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.needRule = org.needRuleOrg.components(separatedBy: ",").compactMap{Int($0)}
         print("Need Rule: ", needRule)
         self.preferencesArr = org.preferences.components(separatedBy: ",").compactMap{Int($0)}
+       
+        
         if self.preferencesArr.isEmpty {
-//            fatalError("Коэффициенты не найдены")
-            print("Коэффициенты не найдены")
+            print("Коэффициенты не найдены, Флаг \(orgIsAppreciated)")
+        } else {
+            self.orgIsAppreciated = true
+            print("Флаг \(orgIsAppreciated)")
         }
+       
         var keyMass = [Int]()
         rulesCount.forEach { rule in
             keyMass += rule.rulesBlock.keys.sorted()
@@ -73,12 +80,6 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         settings()
         self.resultTVC.delegate = self
         self.resultTVC.dataSource = self
-
-//        for i in 0..<numberBlock.count {
-//            dataPoint.append(rulesCount[numberBlock[i] - 1].rulesBlock[needRule[i]] ?? "Правило не найдено")
-//        }
-//        print("DataPoint: \(dataPoint)")
-//       // customizeChart(dataPoints: dataPoint, values: preferencArr.map{Double($0)} )
     }
     
     @objc func settings(){
@@ -110,6 +111,8 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dataPoint.append(rulesCount[numberBlock[element]].rulesBlock[needRule[element]] ?? "Правило не найдено")
         }
         customizeChart(dataPoints: dataPoint, values: preferencesArr.map{Double($0)} )
+        
+        
     }
         
     func customizeChart(dataPoints: [String], values: [Double]) {
@@ -119,7 +122,7 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let dataEntry = BarChartDataEntry(x: Double(i), y: Double(values[i]))
             dataEntries.append(dataEntry)
         }
-        let chartDataSet = BarChartDataSet(entries:dataEntries, label: "bar Chart View")
+        let chartDataSet = BarChartDataSet(entries:dataEntries)
         chartDataSet.colors = colorsOfCharts(numberColor: dataPoints.count, valueColor: values)
         let chartData = BarChartData(dataSet: chartDataSet)
         
@@ -147,6 +150,50 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func showQtVC(org: Organization){
+        var sum = 0
+        var preferencesBalanced = [Int]()
+        if orgIsAppreciated {
+            var configuration = user.configuration(partitionValue: "AllPreferences")
+            configuration.objectTypes = [Preferences.self]
+            
+            
+            Realm.asyncOpen() { (result ) in
+                switch result {
+                case.failure(let error):
+                    print("Failed to open realm: \(error.localizedDescription)")
+                case.success(let realm):
+                    let prefToStat = realm.objects(Preferences.self)
+                    let prefToWrite = Preferences(partition: "All", preference: self.preferencesArr.map{String(describing: $0)}.joined(separator: ","))
+                    try! realm.write{
+                        realm.add(prefToWrite)
+                    }
+                    let count = prefToStat[0].preference.components(separatedBy: ",").compactMap{Int($0)}.count
+                    for i in 0...count - 1 {
+                        sum = 0
+                        prefToStat.forEach{ element in
+                            let number = element.preference.components(separatedBy: ",").compactMap{Int($0)}
+                            sum += number[i]
+                        }
+                        preferencesBalanced.append(sum / prefToStat.count)
+                    }
+                }
+            }
+    
+            Realm.asyncOpen(configuration: configuration){ (result ) in
+                switch result {
+                case.failure(let error):
+                    print("Failed to open realm: \(error.localizedDescription)")
+                case.success(let realm):
+                    let pref = realm.objects(Preferences.self)
+                    try! realm.write{
+                        pref[0].preference = preferencesBalanced.map{String(describing: $0)}.joined(separator: ",")
+                    }
+                    print("Сбалансированная строка ", pref[0].preference)
+            }
+        
+            }
+        }
+        
         guard let vc = storyboard?.instantiateViewController(identifier: "QtTVC", creator: {
             coder in return QuestionViewController(coder: coder, org: org)
         }) else {
@@ -194,8 +241,12 @@ class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.preferencLabel.text = "\(stepperValue)"
         customizeChart(dataPoints: dataPoint, values: preferencesArr.map{Double($0)})
         let predicate = NSPredicate(format: "name == %@", "\(org.name)")
+       
         var configuration = user.configuration(partitionValue: "org = \(user.id)")
         configuration.objectTypes = [Organization.self]
+        
+//        var configurationForStats = user.configuration(partitionValue: "All")
+//        configurationForStats.objectTypes = [Preferences.self]
 
         Realm.asyncOpen(configuration: configuration) { (result) in
             switch result {
